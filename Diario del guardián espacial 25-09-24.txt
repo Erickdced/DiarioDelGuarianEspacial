@@ -1,0 +1,12 @@
+Diario de guardián espacial 25/09/2024 
+
+"Entrenamiento"
+
+Fotos → Al tener la necesidad de una implementación en tiempo real de la inteligencia artificial, debe de tener la posibilidad de identificar la misma cara aún con gestos diferentes, lo que nos lleva a proporcional en la base de datos de entrenamiento diferentes expresiones en las caras de los sujetos. Así permitiendo más velocidad y versatilidad (pasar de solo una identificación por una foto a un fragmento de video).
+
+El algebra lineal entra en juego para poder encontrar la optimización ideal del ciclo, es decir la forma más fácil y rápida de terminar un ciclo de entrenamiento y obtener un resultado. Siempre con cuidado de nunca entrenar el modelo al 100% o puede llegar a pasar que solo funcione con la base de datos (lo ideal es solo ubicarlo entre el rango de 75%-80%)
+
+Propuestas de Objetivos secundarios (cosas que son extras pero me gustaría incluir) 
+→ División de operaciones, debido a que TensorFlow trabajar con capas neuronales, la hipótesis es que es posible seccionar las neuronas de la capa oculta y mandarlas a diferentes computadoras enlazadas, de manera que se pueda dividir la carga, todo a través de comunicación de red (servidor temporal alojado en la computadora más potente, comunicado por internet y direcciones IP)
+→ Generar una base de datos registrando todas las entradas y salidas de personas. (Comunicación con archivos fuera de python a otros lenguajes)
+→ Dejar la posibilidad de escalarlo a nivel de no necesitar credencial sino darle uso a los torniquetes (ligar a controladores externos de electrónica)
