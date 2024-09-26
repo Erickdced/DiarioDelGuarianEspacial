@@ -1,0 +1,49 @@
+Diario del Guardián Espacial 26-09-2024
+
+-Computación Distribuida-
+La computación distribuida es el proceso de conectar varias computadoras a través de una red para que puedan actuar juntas como una sola más potente y capaz de realizar cálculos que ninguna computadora de la red por sí sola podría acometer.
+Arquitectura cliente servidor
+La arquitectura cliente-servidor ofrece las ventajas de la seguridad y la facilidad de la gestión continua. Solo tiene que centrarse en la seguridad de las computadoras servidores. Del mismo modo, cualquier cambio en los sistemas de bases de datos requiere únicamente cambios en el servidor.
+
+La limitación de la arquitectura cliente-servidor es que los servidores pueden provocar cuellos de botella en las comunicaciones, especialmente cuando varias máquinas realizan peticiones simultáneamente.
+
+-Estrategia de División-
+Dado que el reconocimiento facial usa capas convolucionales que son muy exigentes en términos de procesamiento y requieren aceleración por GPU, puedes seguir una estrategia como la siguiente:
+
+-Carga en el Servidor (GPU):-
+
+La computadora con GPU debe manejar las capas convolucionales más profundas, ya que estas son las que más se benefician de la aceleración paralela de la GPU. Estas capas incluyen las que detectan características más complejas en las imágenes faciales, como ojos, boca y formas geométricas faciales.
+Las últimas capas totalmente conectadas también suelen ser intensivas en cómputo y pueden ser ejecutadas en la GPU para aprovechar su potencia.
+Esto podría representar aproximadamente el 50% o más de la carga del entrenamiento, dependiendo del tamaño del modelo.
+Carga en las Computadoras Auxiliares (CPU):
+
+Las primeras capas convolucionales, que detectan patrones más simples como bordes y texturas, pueden ejecutarse en las computadoras auxiliares con CPU, ya que estas capas requieren menos capacidad computacional.
+También puedes distribuir el procesamiento de datos y las capas que no requieren tanto cómputo intensivo en las auxiliares. Por ejemplo:
+Preprocesamiento de imágenes (normalización, escalado).
+Cálculos menos intensivos de capas iniciales o intermedias de la red.
+Además, las computadoras auxiliares pueden colaborar en tareas de preparación de datos o generación de mini-batches para mantener el flujo de datos hacia la GPU.
+-Consideraciones Clave-
+
+Minimizar la Comunicación:
+
+El cuello de botella típico de este enfoque es la comunicación entre computadoras. Para minimizar este impacto:
+Divide los datos de manera inteligente para que la cantidad de información intercambiada sea la menor posible.
+Utiliza un algoritmo de sincronización que no requiera intercambiar gradientes o activaciones en cada paso del entrenamiento, como entrenamiento asíncrono o entrenamiento por lotes mayores.
+Balancing Dinámico:
+
+No todas las capas en las redes convolucionales tienen el mismo costo computacional. Las capas más profundas suelen ser las más costosas, mientras que las primeras capas pueden ser procesadas más fácilmente.
+Un enfoque dinámico en el que monitorees y ajustas las cargas de trabajo durante el entrenamiento puede ayudarte a optimizar la distribución de la carga. Algunas herramientas de frameworks como Horovod pueden ayudarte a administrar este tipo de paralelismo de manera dinámica.
+Framework Adecuado:
+
+Usa herramientas como TensorFlow con soporte para Distributed TensorFlow o PyTorch Distributed para definir explícitamente qué capas ejecutará cada máquina.
+Alternativamente, Horovod es una excelente opción para implementar el entrenamiento distribuido con paralelismo de modelo o de datos, manteniendo el rendimiento optimizado.
+Pruebas de Rendimiento:
+
+Es importante que realices pruebas de rendimiento con diferentes distribuciones de trabajo para ajustar el porcentaje de carga que toma el servidor GPU y las máquinas auxiliares. La proporción del 50% puede variar según el tamaño y profundidad del modelo, así como las capacidades exactas de la GPU y las CPUs de las auxiliares.
+Potencial Limitación: Procesamiento Secuencial
+Ten en cuenta que en el paralelismo de modelo, las capas suelen procesarse de forma secuencial, es decir, las capas profundas no pueden empezar su cálculo hasta que las capas más superficiales hayan completado su trabajo y viceversa. Si la interconexión entre las máquinas no es lo suficientemente rápida, el tiempo de espera puede afectar el rendimiento general.
+--
+//////
+Fuentes:
+https://www.unir.net/ingenieria/revista/computacion-paralela/#:~:text=La%20computación%20paralela%20consiste%20en,ha%20descompuesto%20un%20problema%20computacional.&text=Toda%20esta%20evolución%20tecnológica%20sería%20inviable%20sin%20estudios%20específicos.
+https://www.tensorflow.org/guide/distributed_training?hl=es-419
