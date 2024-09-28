@@ -1,0 +1,9 @@
+Diario del guardián espacial 28-09-24
+
+Funciones de Activación
+
+Las redes neuronales funcionan en base a tomar una decisión con base a diferentes factores, cada uno de estos factores debe de ser ingresada en diferentes neuronas, y al ser procesadas en operaciones básicas se les deben de asignar diferentes PESOS, estos funcionan a manera de que tanto influye algo en su decisión final.
+
+Estos pesos se modifican en cada una de las repeticiones de entrenamiento de la red, sin embargo, si no se incluyen ciertos modificadores estas redes neuronales solo sirven para llegar a una solución de manera lineal, es por ello que existen las funciones de activación, funciones que permiten más versatilidad de los pesos y resultados obtenibles, permitiendo encontrar soluciones a problemas mucho más complejos. 
+
+Dentro de estás funciones tenemos una muy versátil, al punto que se a convertido en el estándar cunado hablamos de entrenamiento para redes neuronales, esta función se llama Unidad Lineal Rectificada (ReLU) por sus siglas en inglés que nos permite eliminar los pesos por debajo de 0, además de tener un costo computacional realmente bajo, sin embargo tiene un problema, y es que puede provocar neuronas muertas a la larga lo que quiere decir que no tienen ningún impacto.
